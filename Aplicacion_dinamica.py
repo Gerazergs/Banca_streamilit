@@ -29,7 +29,7 @@ if str(numero).lower() == st.session_state.name.lower():
         #st.sidebar.write("This lives in the sidebar")
         gporta = st.sidebar.selectbox("Como quieres el grafico de portabilidad",("Scatter", "Bar"))
         CA = st.sidebar.selectbox("Escoje que ver en Clientes Activos",("CLIENTES ACTIVOS", "PPTO 2022"))
-        TR = st.sidebar.selectbox("Escoje que comparar en Transacciones",("TX  Monetarias presupuesto", "TX No Monetarias presupuesto"))
+        TR = st.sidebar.selectbox("Escoje que comparar en Transacciones",("Monetarias", "No Monetarias",'Totales'))
         periodo =st.sidebar.selectbox("Escoge periodo de prediccion NPS BXI",([i for i in range(1,24)]))
         periodo_2 =st.sidebar.selectbox("Escoge periodo de prediccion NPS Movil",([i for i in range(1,24)]))
         
@@ -125,13 +125,17 @@ if str(numero).lower() == st.session_state.name.lower():
         df_4 = pd.read_csv('transaccionales.csv', index_col='Unnamed: 0').reset_index()
         
         df_4.drop('index', axis=1, inplace=True)
-        df_4.columns = ['TX  Monetarias presupuesto', 'TX No Monetarias presupuesto', 'TX Totales', 'Mes',
+        df_4.columns = ['TX  Monetarias presupuesto', 'TX No Monetarias presupuesto', 'TX Totales Presupuesto', 'Mes',
        'Monetarias', 'No Monetarias', 'Total']
-        if TR == 'TX  Monetarias presupuesto':
-            fig_4 = px.scatter(df_4, x='TX  Monetarias presupuesto', y='Monetarias',trendline='ols' )
+        st.dataframe(df_4)
+        if TR == 'Monetarias':
+            fig_4 = px.scatter(df_4, x='Mes', y=['TX  Monetarias presupuesto','Monetarias'],trendline='ols' )
+            st.plotly_chart(fig_4, use_container_width=True)
+        elif TR == 'No Monetarias':
+            fig_4 = px.scatter(df_4, x='Mes', y=['TX No Monetarias presupuesto','No Monetarias'],trendline='ols' )
             st.plotly_chart(fig_4, use_container_width=True)
         else:
-            fig_4 = px.scatter(df_4, x='TX No Monetarias presupuesto', y='Monetarias',trendline='ols' )
+            fig_4 = px.scatter(df_4, x='Mes', y=['TX Totales Presupuesto','Total'],trendline='ols' )
             st.plotly_chart(fig_4, use_container_width=True)
         
         
