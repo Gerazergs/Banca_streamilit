@@ -129,13 +129,13 @@ if str(numero).lower() == st.session_state.name.lower():
        'Monetarias', 'No Monetarias', 'Total']
         st.dataframe(df_4)
         if TR == 'Monetarias':
-            fig_4 = px.bar(df_4, x='Mes', y=['TX  Monetarias presupuesto','Monetarias'],trendline='ols' )
+            fig_4 = px.bar(df_4, x='Mes', y=['TX  Monetarias presupuesto','Monetarias'] )
             st.plotly_chart(fig_4, use_container_width=True)
         elif TR == 'No Monetarias':
-            fig_4 = px.bar(df_4, x='Mes', y=['TX No Monetarias presupuesto','No Monetarias'],trendline='ols' )
+            fig_4 = px.bar(df_4, x='Mes', y=['TX No Monetarias presupuesto','No Monetarias'] )
             st.plotly_chart(fig_4, use_container_width=True)
         else:
-            fig_4 = px.bar(df_4, x='Mes', y=['TX Totales Presupuesto','Total'],trendline='ols' )
+            fig_4 = px.bar(df_4, x='Mes', y=['TX Totales Presupuesto','Total'] )
             st.plotly_chart(fig_4, use_container_width=True)
         
         
