@@ -9,7 +9,7 @@ import scipy.stats as stats
 #graficos
 import matplotlib.pyplot as plt
 import plotly.express as px
-import rsa
+#import rsa
  
 st.title('Bienvenidos antes de comenzar escriban la contraseña del QR')
 
