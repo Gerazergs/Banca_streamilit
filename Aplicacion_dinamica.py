@@ -4,12 +4,12 @@ import numpy as np
 import streamlit as st
 
 #estadistica
-#import scipy.stats as stats
+import scipy.stats as stats
 
 #graficos
 import matplotlib.pyplot as plt
 import plotly.express as px
-#import rsa
+import rsa
  
 st.title('Bienvenidos antes de comenzar escriban la contraseña del QR')
 
@@ -28,6 +28,11 @@ if str(numero) == st.session_state.name:
         #SIDE BAR
         #st.sidebar.write("This lives in the sidebar")
         gporta = st.sidebar.selectbox("Como quieres el grafico de portabilidad",("Scatter", "Bar"))
+        CA = st.sidebar.selectbox("Escoje que ver en Clientes Activos",("CLIENTES ACTIVOS", "PPTO 2022"))
+        TR = st.sidebar.selectbox("Escoje que comparar en Transacciones",("TX  Monetarias presupuesto", "TX No Monetarias presupuesto"))
+        periodo =st.sidebar.selectbox("Escoge periodo de prediccion NPS BXI",([i for i in range(1,24)]))
+        periodo_2 =st.sidebar.selectbox("Escoge periodo de prediccion NPS Movil",([i for i in range(1,24)]))
+        
 
 
         #st.sidebar.button("Click me!")
@@ -103,8 +108,89 @@ if str(numero) == st.session_state.name:
         fig_2 = px.histogram(df, x='EDAD', y='COUNT', color='CLUSTER',
                              histnorm="probability density",animation_frame='SEMANA' )
         st.plotly_chart(fig_2, use_container_width=True)
+        #GRAFICO 5
+        st.subheader("Clientes Activos")
+        
+        df_5 = pd.read_csv('salida_1.csv', index_col='Unnamed: 0').reset_index()
+        df_5.drop('index', axis=1, inplace=True)
+        if CA == 'Clientes Activos':
+            fig_5 = px.bar(df_5, x='FECHA', y='CLIENTES ACTIVOS')
+            st.plotly_chart(fig_5, use_container_width=True)
+        else:
+            fig_5 = px.bar(df_5, x='FECHA', y='PPTO 2022')
+            st.plotly_chart(fig_5, use_container_width=True)
+        
+        #GRAFICO 4
+        st.subheader("TRANSACCIONES")
+        df_4 = pd.read_csv('transaccionales.csv', index_col='Unnamed: 0').reset_index()
+        
+        df_4.drop('index', axis=1, inplace=True)
+        df_4.columns = ['TX  Monetarias presupuesto', 'TX No Monetarias presupuesto', 'TX Totales', 'Mes',
+       'Monetarias', 'No Monetarias', 'Total']
+        if TR == 'TX  Monetarias presupuesto':
+            fig_4 = px.scatter(df_4, x='TX  Monetarias presupuesto', y='Monetarias',trendline='ols' )
+            st.plotly_chart(fig_4, use_container_width=True)
+        else:
+            fig_4 = px.scatter(df_4, x='TX No Monetarias presupuesto', y='Monetarias',trendline='ols' )
+            st.plotly_chart(fig_4, use_container_width=True)
         
         
+        #GRAFICO 6
+        st.subheader("NPS BXI")
+        
+        bxi =pd.DataFrame.from_dict({'ds':['01/01/2022','01/02/2022','01/03/2022','01/04/2022'
+       ,'01/05/2022','01/06/2022','01/07/2022','01/08/2022'],'y':[82.3,83.5,81.4,82,81,83,84,84.5]})
+        bxi['ds'] = pd.to_datetime(bxi ['ds'], format='%d/%m/%Y')
+        from prophet import Prophet
+
+        m = Prophet()
+        m.fit(bxi)
+        data_forecast = m.make_future_dataframe(periods=int(periodo), freq='M')
+        forecast = m.predict(data_forecast)
+        for_pred= forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].copy()
+        for_pred.columns=['Fecha','NPS_predicha','NPS_minima','NPS_maxima']
+        
+        col1_1, col2_1= st.columns(2)
+        col1_1.subheader('prediccion')
+        col2_1.subheader('Realidad')
+        col1_1.dataframe(for_pred)
+        bxi.columns=['Fecha','NPS']
+        col2_1.dataframe(bxi)
+        
+        fig_pred_1 = m.plot(forecast)
+        fig_pred_1_2 = m.plot_components(forecast)
+        st.pyplot(fig_pred_1, use_container_width=True)
+        st.pyplot(fig_pred_1_2, use_container_width=True)
+                                      
+            
+        
+        #GRAFICO 7
+        st.subheader("Distribucion de edades por cluster de uso de la aplicacion")
+        
+        movil =pd.DataFrame.from_dict({'ds':['01/01/2022','01/02/2022','01/03/2022','01/04/2022'
+       ,'01/05/2022','01/06/2022','01/07/2022','01/08/2022'],'y':[80.1,78.2,79,79.3,79.6,81.9,82.1,82.8]})
+        movil['ds'] = pd.to_datetime(movil['ds'], format='%d/%m/%Y')
+        modelo_2 = Prophet()
+        modelo_2.fit(movil)
+        
+        futuro = modelo_2.make_future_dataframe(periods=periodo_2, freq='M')
+        predicciones = modelo_2.predict(futuro)
+        for_pred2 = predicciones[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].copy()
+        for_pred2.columns=['Fecha','NPS_predicha','NPS_minima','NPS_maximas']
+        
+        col2_1, col2_2= st.columns(2)
+        col2_1.subheader('prediccion')
+        col2_2.subheader('Realidad')
+        col2_1.dataframe(for_pred2)
+        bxi.columns=['Fecha','NPS']
+        col2_2.dataframe(bxi)
+        
+        fig_pred_2 = m.plot(predicciones)
+        fig_pred_2_2 = m.plot_components(predicciones)
+        st.pyplot(fig_pred_2, use_container_width=True)
+        st.pyplot(fig_pred_2_2, use_container_width=True)
+        
+
         
         
         
