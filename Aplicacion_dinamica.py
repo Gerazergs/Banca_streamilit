@@ -19,7 +19,7 @@ st.title('Bienvenidos antes de comenzar escriban la contraseña del QR')
 numero = "Arriba_Banca_Digital.2022"
 
 st.text_input("Escribe la contraseña que viene en el QR", key="name")
-if str(numero) == st.session_state.name:
+if str(numero).lower() == st.session_state.name.lower():
     with st.spinner("Por favor espere..."):
         
         #TITULO
