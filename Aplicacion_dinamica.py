@@ -109,7 +109,7 @@ if str(numero) == st.session_state.name:
                              histnorm="probability density",animation_frame='SEMANA' )
         st.plotly_chart(fig_2, use_container_width=True)
         #GRAFICO 5
-        st.subheader("Clientes Activos")
+        st.subheader("CLIENTES ACTIVOS")
         
         df_5 = pd.read_csv('salida_1.csv', index_col='Unnamed: 0').reset_index()
         df_5.drop('index', axis=1, inplace=True)
