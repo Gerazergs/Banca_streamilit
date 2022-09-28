@@ -159,8 +159,8 @@ if str(numero) == st.session_state.name:
         
         fig_pred_1 = m.plot(forecast)
         fig_pred_1_2 = m.plot_components(forecast)
-        st.pyplot(fig_pred_1, use_container_width=True)
-        st.pyplot(fig_pred_1_2, use_container_width=True)
+        st.pyplot(fig_pred_1)#, use_container_width=True)
+        st.pyplot(fig_pred_1_2)#, use_container_width=True)
                                       
             
         
@@ -187,8 +187,8 @@ if str(numero) == st.session_state.name:
         
         fig_pred_2 = m.plot(predicciones)
         fig_pred_2_2 = m.plot_components(predicciones)
-        st.pyplot(fig_pred_2, use_container_width=True)
-        st.pyplot(fig_pred_2_2, use_container_width=True)
+        st.pyplot(fig_pred_2)#, use_container_width=True)
+        st.pyplot(fig_pred_2_2)#, use_container_width=True)
         
 
         
