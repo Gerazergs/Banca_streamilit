@@ -165,7 +165,7 @@ if str(numero) == st.session_state.name:
             
         
         #GRAFICO 7
-        st.subheader("Distribucion de edades por cluster de uso de la aplicacion")
+        st.subheader("NPS Movil")
         
         movil =pd.DataFrame.from_dict({'ds':['01/01/2022','01/02/2022','01/03/2022','01/04/2022'
        ,'01/05/2022','01/06/2022','01/07/2022','01/08/2022'],'y':[80.1,78.2,79,79.3,79.6,81.9,82.1,82.8]})
