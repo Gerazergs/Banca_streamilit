@@ -127,7 +127,8 @@ if str(numero).lower() == st.session_state.name.lower():
         df_4.drop('index', axis=1, inplace=True)
         df_4.columns = ['TX  Monetarias presupuesto', 'TX No Monetarias presupuesto', 'TX Totales Presupuesto', 'Mes',
        'Monetarias', 'No Monetarias', 'Total']
-        df_4=df_4[['TX  Monetarias presupuesto', 'TX No Monetarias presupuesto', 'TX Totales Presupuesto',
+        df_4[['TX  Monetarias presupuesto', 'TX No Monetarias presupuesto', 'TX Totales Presupuesto',
+       'Monetarias', 'No Monetarias', 'Total']]=df_4[['TX  Monetarias presupuesto', 'TX No Monetarias presupuesto', 'TX Totales Presupuesto',
        'Monetarias', 'No Monetarias', 'Total']].astype(int)
         st.dataframe(df_4)
         if TR == 'Monetarias':
