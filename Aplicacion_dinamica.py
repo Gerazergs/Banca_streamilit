@@ -114,7 +114,7 @@ if str(numero).lower() == st.session_state.name.lower():
         
         df_5 = pd.read_csv('salida_1.csv', index_col='Unnamed: 0').reset_index()
         df_5.drop('index', axis=1, inplace=True)
-        df_5['CLIENTES ACTIVOS'] = df_5['CLIENTES ACTIVOS']#.astype(int)
+        df_5['CLIENTES ACTIVOS'] = df_5['CLIENTES ACTIVOS'].astype('int')
         if CA == 'CLIENTES ACTIVOS':
             fig_5 = px.bar(df_5, x='FECHA', y='CLIENTES ACTIVOS')
             st.plotly_chart(fig_5, use_container_width=True)
