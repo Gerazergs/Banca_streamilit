@@ -146,7 +146,11 @@ if str(numero).lower() == st.session_state.name.lower():
             ])
             st.plotly_chart(fig_4, use_container_width=True)
         else:
-            fig_4 = px.bar(df_4, x='Mes', y=['TX Totales Presupuesto','Total'] )
+            #fig_4 = px.bar(df_4, x='Mes', y=['TX Totales Presupuesto','Total'] )
+            fig_4 = go.Figure(data=[
+               go.Bar(name='TX Totales Presupuesto', x=df_4['Mes'], y=df_4['TX Totales Presupuesto'] ),
+               go.Bar(name='Total', x=df_4['Mes'], y=df_4['Total'] )
+            ])
             st.plotly_chart(fig_4, use_container_width=True)
         
         
