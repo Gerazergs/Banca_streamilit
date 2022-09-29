@@ -152,6 +152,12 @@ if str(numero).lower() == st.session_state.name.lower():
                go.Bar(name='Total', x=df_4['Mes'], y=df_4['Total'] )
             ])
             st.plotly_chart(fig_4, use_container_width=True)
+        st.subheader("Total cierre")
+         
+        col1, col2, col3,col4 = st.columns(4)
+        col1.metric("Monetarias", df_4['Monetarias'].sum(), (df_4['TX  Monetarias presupuesto'].sum()/df_4['Monetarias'].sum())-1)
+        col1.metric("No Monetarias", df_4['No Monetarias'].sum(), (df_4['TX No Monetarias presupuesto'].sum()/df_4['No Monetarias'].sum())-1)
+        col1.metric("Total", df_4['Total'].sum(), (df_4['TX Totales Presupuesto'].sum()/df_4['Total'].sum())-1)
         
         
         #GRAFICO 6
