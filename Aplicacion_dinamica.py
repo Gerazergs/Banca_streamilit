@@ -9,6 +9,7 @@ import scipy.stats as stats
 #graficos
 import matplotlib.pyplot as plt
 import plotly.express as px
+import plotly.graph_objects as go
 #import rsa
  
 st.title('Bienvenidos antes de comenzar escriban la contraseña del QR')
@@ -132,10 +133,17 @@ if str(numero).lower() == st.session_state.name.lower():
        'Monetarias', 'No Monetarias', 'Total']].astype(int)
         st.dataframe(df_4)
         if TR == 'Monetarias':
-            fig_4 = px.bar(df_4, x='Mes', y=['TX  Monetarias presupuesto','Monetarias'] )
+            fig_4 = go.Figure(data=[
+                go.bar(name='Monetarias_ppto'], x=df_4['Mes'], y=df_4['TX  Monetarias presupuesto'] ),
+                go.bar(name='Monetarias'], x=df_4['Mes'], y=df_4['Monetarias'] )
+            ])
             st.plotly_chart(fig_4, use_container_width=True)
         elif TR == 'No Monetarias':
-            fig_4 = px.bar(df_4, x='Mes', y=['TX No Monetarias presupuesto','No Monetarias'] )
+            #fig_4 = px.bar(df_4, x='Mes', y=['TX No Monetarias presupuesto','No Monetarias'] )
+            fig_4 = go.Figure(data=[
+               go.bar(name='Monetarias_ppto'], x=df_4['Mes'], y=df_4['TX No Monetarias presupuesto'] ),
+               go.bar(name='Monetarias'], x=df_4['Mes'], y=df_4['No Monetarias'] )
+            ])
             st.plotly_chart(fig_4, use_container_width=True)
         else:
             fig_4 = px.bar(df_4, x='Mes', y=['TX Totales Presupuesto','Total'] )
