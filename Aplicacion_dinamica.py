@@ -134,15 +134,15 @@ if str(numero).lower() == st.session_state.name.lower():
         st.dataframe(df_4)
         if TR == 'Monetarias':
             fig_4 = go.Figure(data=[
-                go.bar(name='Monetarias presupuesto', x=df_4['Mes'], y=df_4['TX  Monetarias presupuesto'] ),
-                go.bar(name='Monetarias', x=df_4['Mes'], y=df_4['Monetarias'] )
+                go.Bar(name='Monetarias presupuesto', x=df_4['Mes'], y=df_4['TX  Monetarias presupuesto'] ),
+                go.Bar(name='Monetarias', x=df_4['Mes'], y=df_4['Monetarias'] )
             ])
             st.plotly_chart(fig_4, use_container_width=True)
         elif TR == 'No Monetarias':
             #fig_4 = px.bar(df_4, x='Mes', y=['TX No Monetarias presupuesto','No Monetarias'] )
             fig_4 = go.Figure(data=[
-               go.bar(name='No Monetarias presupuesto', x=df_4['Mes'], y=df_4['TX No Monetarias presupuesto'] ),
-               go.bar(name='No Monetarias', x=df_4['Mes'], y=df_4['No Monetarias'] )
+               go.Bar(name='No Monetarias presupuesto', x=df_4['Mes'], y=df_4['TX No Monetarias presupuesto'] ),
+               go.Bar(name='No Monetarias', x=df_4['Mes'], y=df_4['No Monetarias'] )
             ])
             st.plotly_chart(fig_4, use_container_width=True)
         else:
