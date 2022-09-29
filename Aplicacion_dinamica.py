@@ -158,9 +158,9 @@ if str(numero).lower() == st.session_state.name.lower():
         
         
         tr_col1, tr_col2, tr_col3 = st.columns(3)
-        tr_col1.metric("Monetarias", str("{:.2f}".format(df_4['Monetarias'].sum()/1000000))+'M', {:.2f}".format((df_4['Monetarias'].sum()/df_4['TX  Monetarias presupuesto'].sum())-1))
-        tr_col2.metric("No Monetarias", str("{:.2f}".format(df_4['No Monetarias'].sum()/1000000))+'M', "{:.2f}".format((df_4['No Monetarias'].sum()/df_4['TX No Monetarias presupuesto'].sum())-1))
-        tr_col3.metric("Total", str("{:.2f}".format(df_4['Total'].sum()/1000000))+'M', "{:.2f}".format((df_4['Total'].sum()/df_4['TX Totales Presupuesto'].sum())-1))
+        tr_col1.metric("Monetarias", f'{round(df_4['Monetarias'].sum()/1000000,2)}M', {:.2f}".format((df_4['Monetarias'].sum()/df_4['TX  Monetarias presupuesto'].sum())-1))
+        tr_col2.metric("No Monetarias",  f'{round(df_4['No Monetarias'].sum()/1000000,2)}M', "{:.2f}".format((df_4['No Monetarias'].sum()/df_4['TX No Monetarias presupuesto'].sum())-1))
+        tr_col3.metric("Total",  f'{round(df_4['Total'].sum()/1000000,2)}M', "{:.2f}".format((df_4['Total'].sum()/df_4['TX Totales Presupuesto'].sum())-1))
         
         
         #GRAFICO 6
