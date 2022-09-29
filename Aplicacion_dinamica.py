@@ -105,7 +105,7 @@ if str(numero).lower() == st.session_state.name.lower():
         st.subheader("Distribucion de edades por cluster de uso de la aplicacion")
         df = pd.read_csv('grafico_2.csv', index_col='Unnamed: 0').reset_index()
         df.drop('index', axis=1, inplace=True)
-
+      
         fig_2 = px.histogram(df, x='EDAD', y='COUNT', color='CLUSTER',
                              histnorm="probability density",animation_frame='SEMANA' )
         st.plotly_chart(fig_2, use_container_width=True)
@@ -114,6 +114,7 @@ if str(numero).lower() == st.session_state.name.lower():
         
         df_5 = pd.read_csv('salida_1.csv', index_col='Unnamed: 0').reset_index()
         df_5.drop('index', axis=1, inplace=True)
+        df_5['CLIENTES ACTIVOS']=df_5['CLIENTES ACTIVOS'].astype(int)
         if CA == 'CLIENTES ACTIVOS':
             fig_5 = px.bar(df_5, x='FECHA', y='CLIENTES ACTIVOS')
             st.plotly_chart(fig_5, use_container_width=True)
@@ -153,11 +154,13 @@ if str(numero).lower() == st.session_state.name.lower():
             ])
             st.plotly_chart(fig_4, use_container_width=True)
         st.subheader("Total cierre")
-         
+        
+        
+        
         tr_col1, tr_col2, tr_col3 = st.columns(3)
-        tr_col1.metric("Monetarias", df_4['Monetarias'].sum(), (df_4['TX  Monetarias presupuesto'].sum()/df_4['Monetarias'].sum())-1)
-        tr_col2.metric("No Monetarias", df_4['No Monetarias'].sum(), (df_4['TX No Monetarias presupuesto'].sum()/df_4['No Monetarias'].sum())-1)
-        tr_col3.metric("Total", df_4['Total'].sum(), (df_4['TX Totales Presupuesto'].sum()/df_4['Total'].sum())-1)
+        tr_col1.metric("Monetarias", df_4['Monetarias'].sum(), "{:.2f}".format(df_4['Monetarias'].sum()/df_4['TX  Monetarias presupuesto'].sum())-1)
+        tr_col2.metric("No Monetarias", df_4['No Monetarias'].sum(), "{:.2f}".format(df_4['No Monetarias'].sum()/df_4['TX No Monetarias presupuesto'].sum())-1)
+        tr_col3.metric("Total", df_4['Total'].sum(), "{:.2f}".format(df_4['Total'].sum()/df_4['TX Totales Presupuesto'].sum())-1)
         
         
         #GRAFICO 6
